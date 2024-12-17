@@ -1,41 +1,47 @@
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { ref, watchEffect } from 'vue'
 import { UiAlert, UiContainer } from '@shgk/vue-course-ui'
 import MeetupAgenda from './MeetupAgenda.vue'
 import MeetupDescription from './MeetupDescription.vue'
 import MeetupCover from './MeetupCover.vue'
 import MeetupInfo from './MeetupInfo.vue'
 
-export default defineComponent({
-  name: 'MeetupView',
+const programData = ref([]); 
 
-  components: {
-    UiAlert,
-    UiContainer,
-  },
+const agendaData = ref([
+
+]);
+
+watchEffect(() => {
+  if (agendaData.value.length === 0) {
+    programData.value = []
+  } else {
+    programData.value = agendaData.value
+  }
 })
 </script>
 
 <template>
   <div>
-    <!-- Обложка митапа -->
-
     <UiContainer>
+      <MeetupCover title="Демо-Митап" image="cover-image.jpg" />
+
       <div class="meetup">
         <div class="meetup__content">
           <h2>Описание</h2>
-
-          <!-- Описание митапа -->
+          <MeetupDescription description="Описание демонстрационного митапа" />
 
           <h2>Программа</h2>
 
-          <!-- Программа митапа -->
-          <!-- Или при пустой программе - сообщение "Программа пока пуста..." в UiAlert -->
-          <UiAlert></UiAlert>
-        </div>
-        <div class="meetup__aside">
-          <!-- Краткая информация о митапе -->
+          <UiAlert v-if="agendaData.length === 0" type="info">
+            Программа пока пуста...
+          </UiAlert>
 
+          <MeetupAgenda :agenda="agendaData" v-else />
+        </div>
+
+        <div class="meetup__aside">
+          <MeetupInfo organizer="Demo Organizer" place="Conference Hall A" :date="1627545600000" />
           <div class="meetup__aside-buttons"></div>
         </div>
       </div>
@@ -50,8 +56,7 @@ export default defineComponent({
   margin: 48px 0 0;
 }
 
-.meetup__content {
-}
+.meetup__content {}
 
 .meetup__aside {
   margin: 40px 0;
