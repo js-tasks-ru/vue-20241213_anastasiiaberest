@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -10,10 +10,18 @@ export default defineComponent({
     },
   },
 })
+</script> -->
+
+<script setup>
+defineProps({
+  description: {
+    type: String,
+  },
+})
 </script>
 
 <template>
-  <div class="meetup-description">{{ description }}</div>
+<div class="meetup-description" v-html="description"></div>
 </template>
 
 <style scoped>
