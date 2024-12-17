@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 
+// Define props directly in the script setup
 const props = defineProps({
   title: {
     type: String,
