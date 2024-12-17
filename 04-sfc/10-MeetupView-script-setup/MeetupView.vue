@@ -1,47 +1,40 @@
 <script setup>
-import { ref, watchEffect } from 'vue'
+import {  computed, ref, watchEffect } from 'vue'
 import { UiAlert, UiContainer } from '@shgk/vue-course-ui'
 import MeetupAgenda from './MeetupAgenda.vue'
 import MeetupDescription from './MeetupDescription.vue'
 import MeetupCover from './MeetupCover.vue'
 import MeetupInfo from './MeetupInfo.vue'
+import meetups from './meetups.fixture.ts'
 
-const programData = ref([]); 
 
-const agendaData = ref([
+const meetupIndex = ref(0)
+const meetup = computed(() => meetups[meetupIndex.value])
 
-]);
 
-watchEffect(() => {
-  if (agendaData.value.length === 0) {
-    programData.value = []
-  } else {
-    programData.value = agendaData.value
-  }
-})
 </script>
 
 <template>
   <div>
     <UiContainer>
-      <MeetupCover title="Демо-Митап" image="cover-image.jpg" />
+      <MeetupCover :title="meetup.title" :image="meetup.image" />
 
       <div class="meetup">
         <div class="meetup__content">
           <h2>Описание</h2>
-          <MeetupDescription description="Описание демонстрационного митапа" />
+          <MeetupDescription :description="meetup.description" />
 
           <h2>Программа</h2>
 
-          <UiAlert v-if="agendaData.length === 0" type="info">
+          <UiAlert v-if="meetup.agenda.length === 0" type="info">
             Программа пока пуста...
           </UiAlert>
 
-          <MeetupAgenda :agenda="agendaData" v-else />
+          <MeetupAgenda  v-else  :agenda="meetup.agenda"/>
         </div>
 
         <div class="meetup__aside">
-          <MeetupInfo organizer="Demo Organizer" place="Conference Hall A" :date="1627545600000" />
+          <MeetupInfo organizer="Demo Organizer" place="Internet" :date="1640995200000" />
           <div class="meetup__aside-buttons"></div>
         </div>
       </div>
