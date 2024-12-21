@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -8,6 +8,14 @@ export default defineComponent({
     description: {
       type: String,
     },
+  },
+})
+</script> -->
+
+<script setup>
+defineProps({
+  description: {
+    type: String,
   },
 })
 </script>
