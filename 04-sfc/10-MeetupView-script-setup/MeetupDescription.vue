@@ -21,7 +21,7 @@ defineProps({
 </script>
 
 <template>
-<div class="meetup-description" v-html="description"></div>
+  <div class="meetup-description">{{ description }}</div>
 </template>
 
 <style scoped>

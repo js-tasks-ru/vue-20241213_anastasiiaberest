@@ -3,26 +3,22 @@ import { getWeatherData, WeatherConditionIcons } from './weather.service.ts'
 
 export default defineComponent({
   name: 'WeatherApp',
-  
+
   setup() {
     const weatherData = ref(getWeatherData())
 
-    const kelvinToCelsius = (temp) => {
-      return (temp - 273.15).toFixed(1) 
+    const kelvinToCelsius = temp => {
+      return (temp - 273.15).toFixed(1)
     }
 
     const isNightTime = (currentDt, sunrise, sunset) => {
-      const currentTime = new Date(`1970-01-01T${currentDt}:00`).getHours()
-      const sunriseHour = parseInt(sunrise.split(':')[0], 10)
-      const sunsetHour = parseInt(sunset.split(':')[0], 10)
-
-      return currentTime < sunriseHour || currentTime >= sunsetHour
+      return currentDt < sunrise || currentDt >= sunset
     }
 
     return {
       weatherData,
       kelvinToCelsius,
-      WeatherConditionIcons, 
+      WeatherConditionIcons,
       isNightTime,
     }
   },
@@ -34,7 +30,7 @@ export default defineComponent({
       <ul class="weather-list unstyled-list">
         <li class="weather-card" :class="{
             'weather-card--night': isNightTime(region.current.dt, region.current.sunrise, region.current.sunset)
-          }" v-for="(region, index) in weatherData" 
+          }" v-for="(region, index) in weatherData"
         :key="index">
           <div class="weather-alert" v-if="region.alert">
             <span class="weather-alert__icon">⚠️</span>
