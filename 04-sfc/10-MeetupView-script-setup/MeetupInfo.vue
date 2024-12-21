@@ -28,11 +28,11 @@ const localDate = computed(() =>
   <ul class="meetup-info">
     <li>
       <UiIcon icon="user" class="meetup-info__icon" />
-      {{ props.organizer }}
+      {{ organizer }}
     </li>
     <li>
       <UiIcon icon="map" class="meetup-info__icon" />
-      {{ props.place }}
+      {{ place }}
     </li>
     <li>
       <UiIcon icon="cal-lg" class="meetup-info__icon" />
