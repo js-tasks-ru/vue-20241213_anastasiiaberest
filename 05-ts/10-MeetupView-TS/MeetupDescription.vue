@@ -1,9 +1,8 @@
-<script setup>
-defineProps({
-  description: {
-    type: String,
-  },
-})
+<script setup lang="ts">
+// Make description optional if it’s not required
+defineProps<{
+  description?: string 
+}>()
 </script>
 
 <template>
